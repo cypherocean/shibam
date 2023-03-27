@@ -15,7 +15,7 @@ class SettingSeeder extends Seeder{
             'ALTERNATE_CONTACT_NUMBER' => '+91 97127 31131',
             'MAIN_CONTACT_NUMBER' => '+91 98253 56656',
             'CONTACT_EMAIL' => 'shibam@gmail.com',
-            'CONTACT_ADDRESS' => 'Varun Industrial Area -1, Opp. Gopal Hotel, Near Giri Cargo Movers, Near maldhari fatak, Kothariya, Rajkot.',
+            'CONTACT_ADDRESS' => 'Ramnathpara, opp. Muktidham,Rajkot,Gujarat 360001',
         ];
 
         foreach($general as $key => $value){

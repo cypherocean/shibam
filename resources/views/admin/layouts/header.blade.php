@@ -7,7 +7,7 @@
                     <b class="logo-icon">
                         <!-- <img src="{{ _logo() }}" alt="homepage" class="dark-logo" style="max-width: 45px; max-height: 45px;" />
                         <img src="{{ _logo() }}" alt="homepage" class="light-logo" style="max-width: 45px; max-height: 45px;" /> -->
-                        TS
+                        SE
                     </b>
                     <span class="logo-text">
                         <img src="{{ _logo() }}" alt="homepage" class="dark-logo" style="max-width: 200px; max-height: 45px;" />
