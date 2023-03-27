@@ -12,11 +12,7 @@
 
 <body>
   @include('front.layout.header')
-  <!-- ======= Hero Section ======= -->
-  <section id="hero">
-    <div class="hero-container" data-aos="fade-up">
-    </div>
-  </section><!-- End Hero -->
+ 
 
   @yield('content')
 

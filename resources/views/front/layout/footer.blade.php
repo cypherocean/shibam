@@ -12,11 +12,11 @@
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">About us</a></li>
-              <li><a href="#">Services</a></li>
-              <li><a href="#">Terms of service</a></li>
-              <li><a href="#">Privacy policy</a></li>
+              <li><a href="{{ route('home') }}">Home</a></li>
+              <li><a href="{{ route('products') }}">Products</a></li>
+              <li><a href="asd.php">Events</a></li>
+              <li><a href="{{ route('about') }}">About Us</a></li>
+              <li><a href="{{ route('contact') }}">Contact Us</a></li>
             </ul>
           </div>
 

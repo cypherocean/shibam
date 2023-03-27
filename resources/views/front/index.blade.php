@@ -11,6 +11,14 @@ Home
 @endsection
 
 @section('content')
+
+ <!-- ======= Hero Section ======= -->
+ <section id="hero">
+    <div class="hero-container" data-aos="fade-up">
+    </div>
+  </section><!-- End Hero -->
+
+  
 <main id="main">
 
   <!-- ======= About Section ======= -->
