@@ -13,6 +13,14 @@
 @yield('scripts')
 
 <script>
+    const APP_URL = "{{ env('MIX_APP_URL') }}";
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
+<script>
     toastr.options = {
         "progressBar": true,
         "positionClass": "toast-bottom-left",

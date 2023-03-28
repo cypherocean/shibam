@@ -11,9 +11,9 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductImage;
 use Carbon\Carbon;
-use DataTables;
 use Faker\Provider\Image;
 use File;
+use Yajra\DataTables\DataTables;
 
 class ProductController extends Controller {
     public function index(Request $request) {
@@ -23,7 +23,7 @@ class ProductController extends Controller {
                         ->orderBy('id', 'desc')->get();
  
 
-            return Datatables::of($data)
+            return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     $return = '<div class="btn-group">
@@ -63,6 +63,7 @@ class ProductController extends Controller {
                 ->rawColumns(['image', 'action', 'status'])
                 ->make(true);
         }
+        // dd('else');
         return view('admin.product.index');
     }
 
@@ -76,10 +77,9 @@ class ProductController extends Controller {
     }
 
     public function insert(ProductRequest $request) {
-        if ($request->ajax()) {
-            return true;
+        if (!$request->ajax()) {
+            return redirect()->back()->with(['error', 'No direct script allowed']);
         }
-
         $data = [
             'product_category_id' => $request->category,
             'title' => $request->title,
@@ -120,18 +120,18 @@ class ProductController extends Controller {
                         ProductImage::insertGetId($crud);
                     }
                     DB::commit();
-                    return redirect()->route('admin.product.index')->with('success', 'Record inserted successfully');
+                    return response()->json(['code' => 200, 'message' => 'Record inseted successfully.']);
                 } else {
                     DB::commit();
-                    return redirect()->route('admin.product.index')->with('success', 'Record inserted successfully');
+                    return response()->json(['code' => 201, 'message' => 'Failed to insert record!']);
                 }
             } else {
                 DB::rollback();
-                return redirect()->back()->with('error', 'Failed to insert record')->withInput();
+                return response()->json(['code' => 201, 'message' => 'Failed to insert record!']);
             }
         } catch (\Throwable $th) {
             DB::rollback();
-            return redirect()->back()->with('error', 'Something went wrong, please try again later')->withInput();
+            return response()->json(['code' => 202, 'message' => 'Somthing went wrong!']);
         }
     }
 
@@ -155,8 +155,8 @@ class ProductController extends Controller {
     }
 
     public function update(Request $request) {
-        if ($request->ajax()) {
-            return true;
+        if (!$request->ajax()) {
+            return redirect()->back()->with(['error', 'No direct script allowed']);
         }
 
         $id = $request->id;
@@ -215,14 +215,14 @@ class ProductController extends Controller {
                     }
                 }
                 DB::commit();
-                return redirect()->route('admin.product.index')->with('success', 'Record updated successfully');
+                return response()->json(['code' => 200, 'message' => 'Record updated successfully']);
             } else {
                 DB::rollback();
-                return redirect()->back()->with('error', 'Failed to update record')->withInput();
+                return response()->json(['code' => 201, 'message' => 'Failed to update record!']);
             }
         } catch (\Throwable $th) {
             DB::rollback();
-            return redirect()->back()->with('error', 'Something went wrong, please try again later')->withInput();
+            return response()->json(['code' => 202, 'message' => 'Somthing went wrong!']);
         }
     }
 
@@ -258,6 +258,7 @@ class ProductController extends Controller {
 
             if (!empty($data)) {
                 if ($status == 'delete') {
+                    $process = ProductImage::where(['product_id' => $id])->delete();
                     $process = Product::where(['id' => $id])->delete();
 
                     $file_path = public_path() . '/uploads/product/' . $data->photo;

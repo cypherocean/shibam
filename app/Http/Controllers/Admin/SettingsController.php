@@ -65,7 +65,7 @@ class SettingsController extends Controller {
                             $extension = $request->file($key)->getClientOriginalExtension();
                             $filenameToStore = strtolower($key).'.'.$extension;
 
-                            $folder_to_upload = public_path().'/backend/uploads/logo/';
+                            $folder_to_upload = public_path().'/uploads/logo/';
 
                             if (!\File::exists($folder_to_upload)) {
                                 \File::makeDirectory($folder_to_upload, 0777, true, true);
@@ -74,7 +74,7 @@ class SettingsController extends Controller {
                             $collection->value = $filenameToStore;
                             $collection->save();
 
-                            $file_path = public_path().'/backend/uploads/logo/'.$image_name;
+                            $file_path = public_path().'/uploads/logo/'.$image_name;
 
                             if(File::exists($file_path) && $file_path != ''){
                                 @unlink($file_path);

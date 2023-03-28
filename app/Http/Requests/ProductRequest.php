@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
 class ProductRequest extends FormRequest
 {
     /**
@@ -21,10 +20,27 @@ class ProductRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules(){
+        if($this->method() == 'PATCH'){
+            return [
+                'category' => 'required',
+                'title' => 'required',
+                'product_description' => 'required'
+            ];
+        }else{
+            return [
+                'category' => 'required',
+                'title' => 'required',
+                'product_description' => 'required',
+            ];
+        }
+    }
+
+    public function messages(){
         return [
-            //
+            'category.required' => 'Please select category',
+            'title.required' => 'Please enter title',
+            'product_description.required' => 'Please enter product description'
         ];
     }
 }
